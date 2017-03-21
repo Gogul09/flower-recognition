@@ -16,14 +16,14 @@ with open('conf/conf.json') as f:
 	config = json.load(f)
 
 # config variables
-test_size 		= config["test_size"]
-seed 			= config["seed"]
+test_size 	= config["test_size"]
+seed 		= config["seed"]
 features_path	= config["features_path"]
 labels_path 	= config["labels_path"]
-results  		= config["results"]
+results  	= config["results"]
 classifier_path = config["classifier_path"]
-train_path 		= config["train_path"]
-num_classes		= config["num_classes"]
+train_path 	= config["train_path"]
+num_classes	= config["num_classes"]
 
 # import features and labels
 h5f_data = h5py.File(features_path, 'r')
