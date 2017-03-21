@@ -31,14 +31,14 @@ with open('conf/conf.json') as f:
 	config = json.load(f)
 
 # config variables
-model_name			= config["model"]
-weights 			= config["weights"]
+model_name		= config["model"]
+weights 		= config["weights"]
 include_top 		= config["include_top"]
-train_path 			= config["train_path"]
+train_path 		= config["train_path"]
 features_path		= config["features_path"]
 labels_path 		= config["labels_path"]
-test_size			= config["test_size"]
-results				= config["results"]
+test_size		= config["test_size"]
+results			= config["results"]
 
 # start time
 print "[STATUS] start time - {}".format(datetime.datetime.now().strftime("%Y-%m-%d %H:%M")) 
@@ -119,15 +119,6 @@ h5f_label.create_dataset('dataset_1', data=np.array(le_labels))
 
 h5f_data.close()
 h5f_label.close()
-
-# # save model and weights
-# model_json = model.to_json()
-# with open(model_path + str(test_size) + ".json", "w") as json_file:
-# 	json_file.write(model_json)
-
-# # save weights
-# model.save_weights(model_path + str(test_size) + ".h5")
-# print("[STATUS] saved model and weights to disk..")
 
 print "[STATUS] features and labels saved.."
 
