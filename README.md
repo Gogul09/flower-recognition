@@ -21,9 +21,9 @@ This repo contains the code for conference paper titled **Flower Species Recogni
 * cPickle
 
 ### Usage ###
-* Organize dataset   - `python organize_flowers17.py`
-* Feature extraction - `python extract_features.py`
-* Train model        - `python train.py`
+* Organize dataset                      - `python organize_flowers17.py`
+* Feature extraction using CNN          - `python extract_features.py`
+* Train model using Logistic Regression - `python train.py`
 
 ### Conclusion ###
 * **Inception-v3** and **Xception** outperformed all the other architectures.
