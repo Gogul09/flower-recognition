@@ -20,6 +20,11 @@ This repo contains the code for conference paper titled **Flower Species Recogni
 * scikit-learn
 * cPickle
 
+### Usage ###
+* Organize dataset   - `python organize_flowers17.py`
+* Feature extraction - `python extract_features.py`
+* Train model        - `python train.py`
+
 ### Conclusion ###
 * **Inception-v3** and **Xception** outperformed all the other architectures.
 * This could be due to the presence of **network-in-a-network** architecture codenamed as **Inception** module.
