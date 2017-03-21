@@ -1,15 +1,15 @@
 {
-	"model"				: "vgg19",
-	"weights" 			: "imagenet",
+	"model"			: "vgg19",
+	"weights" 		: "imagenet",
 	"include_top" 		: false,
 
 	"train_path" 		: "G:/datasets/flowers/flowers_17",
 	"features_path"	 	: "output/flowers_17/vgg19/features.h5",
 	"labels_path" 		: "output/flowers_17/vgg19/labels.h5",
-	"results" 			: "output/flowers_17/vgg19/results.txt",
+	"results" 		: "output/flowers_17/vgg19/results.txt",
 	"classifier_path" 	: "output/flowers_17/vgg19/classifier.cpickle",
 
 	"test_size" 		: 0.30,
-	"seed" 				: 9,
+	"seed" 			: 9,
 	"num_classes" 		: 17
 }
