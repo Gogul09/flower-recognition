@@ -1,15 +1,42 @@
 # Flower Species Recognition System #
 
-This repo is for a project named **"Flower Species Recognition System using Convolutional Neural Networks and Transfer Learning".**
+This repo contains the code for conference paper titled **Flower Species Recognition System using Convolutional Neural Networks and Transfer Learning**, by I.Gogul and V.Sathiesh Kumar, Proceedings of ICSCN-2017 conference, IEEE Xplore Digital Library.
 
-### What is this repository for? ###
+### Summary of the project ###
 
-* Pretrained state-of-the-art neural networks are used on University of Oxford's FLOWER species dataset.
-* Models used - Xception, Inception-v3, OverFeat, ResNet50, VGG16, VGG19.
-* Weights used - ImageNet
+* Pretrained state-of-the-art neural networks are used on University of Oxford's FLOWERS17 and FLOWERS102 dataset.
+* Models used     - Xception, Inception-v3, OverFeat, ResNet50, VGG16, VGG19.
+* Weights used    - ImageNet
 * Classifier used - Logistic Regression
+* Tutorial for this work is available at - [Flower Recognition - Deep Learning](https://gogul09.github.io/flower-recognition-deep-learning/).
 
-### Results ###
-* Xception model outperformed all the other architectures.
-* Highest top-1 accuracy - **97.06%**
-* Highest top-5 accuracy - **99.26%**
+### Conclusion ###
+* Inception-v3 and Xception outperformed all the other architectures.
+* This could be due to the presence of **network-in-a-network** architecture codenamed as **Inception** module.
+
+### Show me the numbers ###
+The below tables shows the accuracies obtained for every Deep Neural Net model used to extract features from FLOWERS17 dataset using different parameter settings.
+
+* Result-1
+  
+  * test_size  : **0.10**
+  * classifier : **Logistic Regression**
+  
+| Model        | Rank-1 accuracy | Rank-5 accuracy |
+|--------------|-----------------|-----------------|
+| Inception-v3 | **96.32%**          | **99.26%**          |
+| VGG16        | 85.29%          | 98.53%          |
+| VGG19        | 88.24%          | **99.26%**          |
+| ResNet50     | 56.62%          | 90.44%          |
+
+* Result-2
+  
+  * test_size  : **0.30**
+  * classifier : **Logistic Regression**
+
+| Model        | Rank-1 accuracy | Rank-5 accuracy |
+|--------------|-----------------|-----------------|
+| Inception-v3 | **96.81%**          | **99.51%**          |
+| VGG16        | 88.24%          | 99.02%          |
+| VGG19        | 88.73%          | 98.77%          |
+| ResNet50     | 59.80%          | 86.52%          |
