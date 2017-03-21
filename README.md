@@ -1,21 +1,21 @@
-# Flower Species Recognition System #
+# Flower Species Recognition System using Convolutional Neural Networks and Transfer Learning #
 
-This repo contains the code for conference paper titled **Flower Species Recognition System using Convolutional Neural Networks and Transfer Learning**, by I.Gogul and V.Sathiesh Kumar, Proceedings of ICSCN-2017 conference, IEEE Xplore Digital Library.
+This repo contains the code for conference paper titled **Flower Species Recognition System using Convolutional Neural Networks and Transfer Learning**, by I.Gogul and V.Sathiesh Kumar, Proceedings of ICSCN-2017 conference, IEEE Xplore Digital Library (Presented, to be uploaded).
 
 ### Summary of the project ###
 
-* Pretrained state-of-the-art neural networks are used on University of Oxford's FLOWERS17 and FLOWERS102 dataset.
-* Models used     - Xception, Inception-v3, OverFeat, ResNet50, VGG16, VGG19.
-* Weights used    - ImageNet
-* Classifier used - Logistic Regression
-* Tutorial for this work is available at - [Flower Recognition - Deep Learning](https://gogul09.github.io/flower-recognition-deep-learning/).
+* Pretrained state-of-the-art neural networks are used on *University of Oxford's* **FLOWERS17** and **FLOWERS102** dataset.
+* Models used     - **Xception, Inception-v3, OverFeat, ResNet50, VGG16, VGG19**.
+* Weights used    - **ImageNet**
+* Classifier used - **Logistic Regression**
+* Tutorial for this work is available at - [Flower Recognition using Deep Learning](https://gogul09.github.io/flower-recognition-deep-learning/).
 
 ### Conclusion ###
-* Inception-v3 and Xception outperformed all the other architectures.
+* **Inception-v3** and **Xception** outperformed all the other architectures.
 * This could be due to the presence of **network-in-a-network** architecture codenamed as **Inception** module.
 
 ### Show me the numbers ###
-The below tables shows the accuracies obtained for every Deep Neural Net model used to extract features from FLOWERS17 dataset using different parameter settings.
+The below tables shows the accuracies obtained for every Deep Neural Net model used to extract features from **FLOWERS17** dataset using different parameter settings.
 
 * Result-1
   
