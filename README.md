@@ -10,6 +10,16 @@ This repo contains the code for conference paper titled **Flower Species Recogni
 * Classifier used - **Logistic Regression**
 * Tutorial for this work is available at - [Flower Recognition using Deep Learning](https://gogul09.github.io/flower-recognition-deep-learning/).
 
+### Dependencies ###
+* Theano or TensorFlow
+* Keras
+* NumPy
+* matplotlib
+* seaborn
+* h5py
+* scikit-learn
+* cPickle
+
 ### Conclusion ###
 * **Inception-v3** and **Xception** outperformed all the other architectures.
 * This could be due to the presence of **network-in-a-network** architecture codenamed as **Inception** module.
