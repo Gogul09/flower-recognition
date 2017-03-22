@@ -25,10 +25,6 @@ This repo contains the code for conference paper titled **Flower Species Recogni
 * Feature extraction using CNN          - `python extract_features.py`
 * Train model using Logistic Regression - `python train.py`
 
-### Conclusion ###
-* **Inception-v3** and **Xception** outperformed all the other architectures.
-* This could be due to the presence of **network-in-a-network** architecture codenamed as **Inception** module.
-
 ### Show me the numbers ###
 The below tables shows the accuracies obtained for every Deep Neural Net model used to extract features from **FLOWERS17** dataset using different parameter settings.
 
@@ -57,3 +53,7 @@ The below tables shows the accuracies obtained for every Deep Neural Net model u
 | VGG16        | 88.24%          | 99.02%          |
 | VGG19        | 88.73%          | 98.77%          |
 | ResNet50     | 59.80%          | 86.52%          |
+
+### Conclusion ###
+* **Inception-v3** and **Xception** outperformed all the other architectures.
+* This could be due to the presence of **network-in-a-network** architecture codenamed as **Inception** module.
