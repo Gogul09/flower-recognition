@@ -1,4 +1,4 @@
-# Flower Species Recognition System using Convolutional Neural Networks and Transfer Learning #
+# Flower Species Recognition System #
 
 This repo contains the code for conference paper titled **Flower Species Recognition System using Convolutional Neural Networks and Transfer Learning**, by I.Gogul and V.Sathiesh Kumar, Proceedings of ICSCN-2017 conference, IEEE Xplore Digital Library (Presented, to be uploaded).
 
@@ -39,9 +39,10 @@ The below tables shows the accuracies obtained for every Deep Neural Net model u
   
 | Model        | Rank-1 accuracy | Rank-5 accuracy |
 |--------------|-----------------|-----------------|
-| Inception-v3 | **96.32%**          | **99.26%**          |
+| Xception     | **97.06%**      | **99.26%**      |
+| Inception-v3 | 96.32%          | **99.26%**      |
 | VGG16        | 85.29%          | 98.53%          |
-| VGG19        | 88.24%          | **99.26%**          |
+| VGG19        | 88.24%          | **99.26%**      |
 | ResNet50     | 56.62%          | 90.44%          |
 
 * Result-2
@@ -51,7 +52,7 @@ The below tables shows the accuracies obtained for every Deep Neural Net model u
 
 | Model        | Rank-1 accuracy | Rank-5 accuracy |
 |--------------|-----------------|-----------------|
-| Inception-v3 | **96.81%**          | **99.51%**          |
+| Inception-v3 | **96.81%**      | **99.51%**      |
 | VGG16        | 88.24%          | 99.02%          |
 | VGG19        | 88.73%          | 98.77%          |
 | ResNet50     | 59.80%          | 86.52%          |
