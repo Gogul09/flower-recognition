@@ -52,7 +52,8 @@ The below tables shows the accuracies obtained for every Deep Neural Net model u
 
 | Model        | Rank-1 accuracy | Rank-5 accuracy |
 |--------------|-----------------|-----------------|
-| Inception-v3 | **96.81%**      | **99.51%**      |
+| Xception     | 93.38%          | **99.75%**      |
+| Inception-v3 | **96.81%**      | 99.51%          |
 | VGG16        | 88.24%          | 99.02%          |
 | VGG19        | 88.73%          | 98.77%          |
 | ResNet50     | 59.80%          | 86.52%          |
