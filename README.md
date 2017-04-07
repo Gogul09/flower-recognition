@@ -20,6 +20,12 @@ This repo contains the code for conference paper titled **Flower Species Recogni
 * scikit-learn `sudo pip install scikit-learn`
 * cPickle (already installed with Python 2.7 and Python 3.4)
 
+### System requirements
+* This project used Windows 10 for development purposes and Odroid-XU4 for testing purposes.
+
+### Licence
+MIT License
+
 ### Usage ###
 * Organize dataset                      - `python organize_flowers17.py`
 * Feature extraction using CNN          - `python extract_features.py`
