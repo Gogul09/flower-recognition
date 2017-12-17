@@ -5,14 +5,15 @@ warnings.simplefilter(action="ignore", category=FutureWarning)
 # keras imports
 from keras.applications.vgg16 import VGG16, preprocess_input
 from keras.applications.vgg19 import VGG19, preprocess_input
-#from keras.applications.xception import Xception, preprocess_input 
+from keras.applications.xception import Xception, preprocess_input
 from keras.applications.resnet50 import ResNet50, preprocess_input
+from keras.applications.inception_resnet_v2 import InceptionResNetV2, preprocess_input
+from keras.applications.mobilenet import MobileNet, preprocess_input
 from keras.applications.inception_v3 import InceptionV3, preprocess_input
 from keras.preprocessing import image
-from sklearn.preprocessing import LabelEncoder
 from keras.models import Model
 from keras.models import model_from_json
-import cPickle
+from keras.layers import Input
 
 # other imports
 from sklearn.preprocessing import LabelEncoder
@@ -23,7 +24,6 @@ import h5py
 import os
 import json
 import datetime
-
 import time
 
 # load the user configs
@@ -31,20 +31,22 @@ with open('conf/conf.json') as f:
 	config = json.load(f)
 
 # config variables
-model_name		= config["model"]
-weights 		= config["weights"]
-include_top 		= config["include_top"]
-train_path 		= config["train_path"]
-features_path		= config["features_path"]
-labels_path 		= config["labels_path"]
-test_size		= config["test_size"]
-results			= config["results"]
+model_name = config["model"]
+weights = config["weights"]
+include_top = config["include_top"]
+train_path = config["train_path"]
+features_path = config["features_path"]
+labels_path = config["labels_path"]
+test_size = config["test_size"]
+results = config["results"]
+model_path = config["model_path"]
+#weights_path = config["weights_path"]
 
 # start time
-print "[STATUS] start time - {}".format(datetime.datetime.now().strftime("%Y-%m-%d %H:%M")) 
+print ("[STATUS] start time - {}".format(datetime.datetime.now().strftime("%Y-%m-%d %H:%M")))
 start = time.time()
 
-# create the pretrained models 
+# create the pretrained models
 # check for pretrained weight usage or not
 # check for top layers to be included or not
 if model_name == "vgg16":
@@ -60,9 +62,17 @@ elif model_name == "resnet50":
 	model = Model(input=base_model.input, output=base_model.get_layer('flatten').output)
 	image_size = (224, 224)
 elif model_name == "inceptionv3":
-	base_model = InceptionV3(weights=weights)
-	model = Model(input=base_model.input, output=base_model.get_layer('flatten').output)
+	base_model = InceptionV3(include_top=include_top, weights=weights, input_tensor=Input(shape=(299,299,3)))
+	model = Model(input=base_model.input, output=base_model.get_layer('custom').output)
 	image_size = (299, 299)
+elif model_name == "inceptionresnetv2":
+	base_model = InceptionResNetV2(include_top=include_top, weights=weights, input_tensor=Input(shape=(299,299,3)))
+	model = Model(input=base_model.input, output=base_model.get_layer('custom').output)
+	image_size = (299, 299)
+elif model_name == "mobilenet":
+	base_model = MobileNet(include_top=include_top, weights=weights, input_tensor=Input(shape=(224,224,3)), input_shape=(224,224,3))
+	model = Model(input=base_model.input, output=base_model.get_layer('custom').output)
+	image_size = (224, 224)
 elif model_name == "xception":
 	base_model = Xception(weights=weights)
 	model = Model(input=base_model.input, output=base_model.get_layer('avg_pool').output)
@@ -70,13 +80,13 @@ elif model_name == "xception":
 else:
 	base_model = None
 
-print "[INFO] successfully loaded base model and model..."
+print ("[INFO] successfully loaded base model and model...")
 
 # path to training dataset
 train_labels = os.listdir(train_path)
 
 # encode the labels
-print("[INFO] encoding labels...")
+print ("[INFO] encoding labels...")
 le = LabelEncoder()
 le.fit([tl for tl in train_labels])
 
@@ -85,9 +95,10 @@ features = []
 labels   = []
 
 # loop over all the labels in the folder
-i = 0
-for label in train_labels:
+count = 1
+for i, label in enumerate(train_labels):
 	cur_path = train_path + "/" + label
+	count = 1
 	for image_path in glob.glob(cur_path + "/*.jpg"):
 		img = image.load_img(image_path, target_size=image_size)
 		x = image.img_to_array(img)
@@ -97,9 +108,9 @@ for label in train_labels:
 		flat = feature.flatten()
 		features.append(flat)
 		labels.append(label)
-		print "[INFO] processed - {}".format(i)
-		i += 1
-	print "[INFO] completed label - {}".format(label)
+		print ("[INFO] processed - " + str(count))
+		count += 1
+	print ("[INFO] completed label - " + label)
 
 # encode the labels using LabelEncoder
 targetNames = np.unique(labels)
@@ -107,10 +118,10 @@ le = LabelEncoder()
 le_labels = le.fit_transform(labels)
 
 # get the shape of training labels
-print "[STATUS] training labels: {}".format(le_labels)
-print "[STATUS] training labels shape: {}".format(le_labels.shape)
+print ("[STATUS] training labels: {}".format(le_labels))
+print ("[STATUS] training labels shape: {}".format(le_labels.shape))
 
-# save features and labels 
+# save features and labels
 h5f_data = h5py.File(features_path, 'w')
 h5f_data.create_dataset('dataset_1', data=np.array(features))
 
@@ -120,8 +131,17 @@ h5f_label.create_dataset('dataset_1', data=np.array(le_labels))
 h5f_data.close()
 h5f_label.close()
 
-print "[STATUS] features and labels saved.."
+# save model and weights
+model_json = model.to_json()
+with open(model_path + str(test_size) + ".json", "w") as json_file:
+	json_file.write(model_json)
+
+# save weights
+model.save_weights(model_path + str(test_size) + ".h5")
+print("[STATUS] saved model and weights to disk..")
+
+print ("[STATUS] features and labels saved..")
 
 # end time
 end = time.time()
-print "[STATUS] end time - {}".format(datetime.datetime.now().strftime("%Y-%m-%d %H:%M")) 
+print ("[STATUS] end time - {}".format(datetime.datetime.now().strftime("%Y-%m-%d %H:%M")))

@@ -1,12 +1,14 @@
+# organize imports
 import os
 import glob
 import datetime
 
-print "[INFO] program started on - {}".format(str(datetime.datetime.now))
+# print start time
+print ("[INFO] program started on - " + str(datetime.datetime.now))
 
 # get the input and output path
-input_path  = "G:\\Datasets\\flowers\\17flowers\\jpg"
-output_path = "G:\\Datasets\\flowers\\17flowers\\"
+input_path  = "G:\\workspace\\machine-intelligence\\deep-learning\\flower-recognition\\17flowers\\jpg"
+output_path = "G:\\workspace\\machine-intelligence\\deep-learning\\flower-recognition\\dataset\\train"
 
 # get the class label limit
 class_limit = 17
@@ -19,6 +21,7 @@ label = 0
 i = 0
 j = 80
 
+# flower17 class names
 class_names = ["daffodil", "snowdrop", "lilyvalley", "bluebell", "crocus",
 			   "iris", "tigerlily", "tulip", "fritillary", "sunflower", 
 			   "daisy", "coltsfoot", "dandelion", "cowslip", "buttercup",
@@ -43,4 +46,5 @@ for x in range(1, class_limit+1):
 	j += 80
 	label += 1
 
-print "[INFO] program ended on - {}".format(str(datetime.datetime.now))
+# print end time
+print ("[INFO] program ended on - " + str(datetime.datetime.now))

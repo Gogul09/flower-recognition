@@ -1,14 +1,14 @@
 # Flower Species Recognition System #
 
-This repo contains the code for conference paper titled **Flower Species Recognition System using Convolutional Neural Networks and Transfer Learning**, by I.Gogul and V.Sathiesh Kumar, Proceedings of ICSCN-2017 conference, IEEE Xplore Digital Library (Presented, to be uploaded).
+This repo contains the code for conference paper titled **Flower Species Recognition System using Convolutional Neural Networks and Transfer Learning**, by I.Gogul and V.Sathiesh Kumar, Proceedings of ICSCN-2017 conference, IEEE Xplore Digital Library.
 
 ### Summary of the project ###
 
 * Pretrained state-of-the-art neural networks are used on *University of Oxford's* **FLOWERS17** and **FLOWERS102** dataset.
-* Models used     - **Xception, Inception-v3, OverFeat, ResNet50, VGG16, VGG19**.
+* Models used     - **Xception, Inception-v3, OverFeat, ResNet50, VGG16, VGG19, InceptionResNetv2, MobileNet**.
 * Weights used    - **ImageNet**
 * Classifier used - **Logistic Regression**
-* Tutorial for this work is available at - [Flower Recognition using Deep Learning](https://gogul09.github.io/flower-recognition-deep-learning/).
+* Tutorial for this work is available at - [Flower Recognition using Deep Learning](https://gogul09.github.io/software/flower-recognition-deep-learning).
 
 ### Dependencies ###
 * Theano or TensorFlow `sudo pip install theano` or `sudo pip install tensorflow`
@@ -18,7 +18,6 @@ This repo contains the code for conference paper titled **Flower Species Recogni
 * seaborn `sudo pip install seaborn`
 * h5py `sudo pip install h5py`
 * scikit-learn `sudo pip install scikit-learn`
-* cPickle (already installed with Python 2.7 and Python 3.4)
 
 ### System requirements
 * This project used Windows 10 for development purposes and Odroid-XU4 for testing purposes.
@@ -41,12 +40,13 @@ The below tables shows the accuracies obtained for every Deep Neural Net model u
   
 | Model        | Rank-1 accuracy | Rank-5 accuracy |
 |--------------|-----------------|-----------------|
-| Xception     | **97.06%**      | **99.26%**      |
-| Inception-v3 | 96.32%          | **99.26%**      |
+| Xception     | 97.06%      	 | 99.26%      	   |
+| Inception-v3 | 96.32%          | 99.26%          |
 | VGG16        | 85.29%          | 98.53%          |
-| VGG19        | 88.24%          | **99.26%**      |
+| VGG19        | 88.24%          | 99.26%          |
 | ResNet50     | 56.62%          | 90.44%          |
-
+| MobileNet     | <b>98.53%</b>          | <b>100.00%</b>         |
+| Inception<br>ResNetV2     | 91.91%          | 98.53%          |
 * Result-2
   
   * test_size  : **0.30**
@@ -54,12 +54,10 @@ The below tables shows the accuracies obtained for every Deep Neural Net model u
 
 | Model        | Rank-1 accuracy | Rank-5 accuracy |
 |--------------|-----------------|-----------------|
-| Xception     | 93.38%          | **99.75%**      |
-| Inception-v3 | **96.81%**      | 99.51%          |
+| Xception     | 93.38%          | <b>99.75%</b>          |
+| Inception-v3 | <b>96.81%</b>          | 99.51%          |
 | VGG16        | 88.24%          | 99.02%          |
 | VGG19        | 88.73%          | 98.77%          |
 | ResNet50     | 59.80%          | 86.52%          |
-
-### Conclusion ###
-* **Inception-v3** and **Xception** outperformed all the other architectures.
-* This could be due to the presence of **network-in-a-network** architecture codenamed as **Inception** module.
+| MobileNet     | 96.32%         | <b>99.75%</b>         |
+| Inception<br>ResNetV2     | 88.48%          | 99.51%          |
