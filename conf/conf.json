@@ -1,16 +1,17 @@
 {
-	"model"           : "vgg16",
+	"model"           : "mobilenet",
 	"weights"         : "imagenet",
 	"include_top"     : false,
 
 	"train_path"      : "dataset/train",
-	"features_path"   : "output/flowers_17/vgg16/features.h5",
-	"labels_path"     : "output/flowers_17/vgg16/labels.h5",
-	"results"         : "output/flowers_17/vgg16/results.txt",
-	"classifier_path" : "output/flowers_17/vgg16/classifier.cpickle",
-	"model_path"	  	: "output/flowers_17/vgg16/model",
+	"test_path"		  : "dataset/test",
+	"features_path"   : "output/flowers_17/mobilenet/features.h5",
+	"labels_path"     : "output/flowers_17/mobilenet/labels.h5",
+	"results"         : "output/flowers_17/mobilenet/results.txt",
+	"classifier_path" : "output/flowers_17/mobilenet/classifier.pickle",
+	"model_path"	  : "output/flowers_17/mobilenet/model",
 
-	"test_size"       : 0.30,
+	"test_size"       : 0.10,
 	"seed"            : 9,
 	"num_classes"     : 17
 }

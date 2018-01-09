@@ -9,6 +9,7 @@ import numpy as np
 import h5py
 import os
 import json
+import pickle
 import seaborn as sns
 import matplotlib.pyplot as plt
 
@@ -17,24 +18,25 @@ with open('conf/conf.json') as f:
 	config = json.load(f)
 
 # config variables
-test_size = config["test_size"]
-seed = config["seed"]
-features_path = config["features_path"]
-labels_path = config["labels_path"]
-results = config["results"]
+test_size 		= config["test_size"]
+seed 			= config["seed"]
+features_path 	= config["features_path"]
+labels_path 	= config["labels_path"]
+results 		= config["results"]
 classifier_path = config["classifier_path"]
-train_path = config["train_path"]
-num_classes = config["num_classes"]
+train_path 		= config["train_path"]
+num_classes 	= config["num_classes"]
+classifier_path = config["classifier_path"]
 
 # import features and labels
-h5f_data = h5py.File(features_path, 'r')
+h5f_data  = h5py.File(features_path, 'r')
 h5f_label = h5py.File(labels_path, 'r')
 
 features_string = h5f_data['dataset_1']
-labels_string = h5f_label['dataset_1']
+labels_string   = h5f_label['dataset_1']
 
 features = np.array(features_string)
-labels = np.array(labels_string)
+labels   = np.array(labels_string)
 
 h5f_data.close()
 h5f_label.close()
@@ -99,9 +101,7 @@ f.close()
 
 # dump classifier to file
 print ("[INFO] saving model...")
-#f = open(classifier_path, "w")
-#f.write(cPickle.dumps(model))
-#f.close()
+pickle.dump(model, open(classifier_path, 'wb'))
 
 # display the confusion matrix
 print ("[INFO] confusion matrix")

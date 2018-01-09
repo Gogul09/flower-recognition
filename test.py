@@ -1,6 +1,11 @@
-# filter warnings
-import warnings
-warnings.simplefilter(action="ignore", category=FutureWarning)
+# test script to preform prediction on test images inside 
+# dataset/test/
+#   -- image_1.jpg
+#   -- image_2.jpg
+#   ...
+
+# organize imports
+from __future__ import print_function
 
 # keras imports
 from keras.applications.vgg16 import VGG16, preprocess_input
@@ -16,15 +21,12 @@ from keras.models import model_from_json
 from keras.layers import Input
 
 # other imports
-from sklearn.preprocessing import LabelEncoder
+from sklearn.linear_model import LogisticRegression
 import numpy as np
-import glob
-import cv2
-import h5py
 import os
 import json
-import datetime
-import time
+import pickle
+import cv2
 
 # load the user configs
 with open('conf/conf.json') as f:    
@@ -35,19 +37,20 @@ model_name 		= config["model"]
 weights 		= config["weights"]
 include_top 	= config["include_top"]
 train_path 		= config["train_path"]
+test_path 		= config["test_path"]
 features_path 	= config["features_path"]
 labels_path 	= config["labels_path"]
 test_size 		= config["test_size"]
 results 		= config["results"]
 model_path 		= config["model_path"]
+seed 			= config["seed"]
+classifier_path = config["classifier_path"]
 
-# start time
-print ("[STATUS] start time - {}".format(datetime.datetime.now().strftime("%Y-%m-%d %H:%M")))
-start = time.time()
+# load the trained logistic regression classifier
+print ("[INFO] loading the classifier...")
+classifier = pickle.load(open(classifier_path, 'rb'))
 
-# create the pretrained models
-# check for pretrained weight usage or not
-# check for top layers to be included or not
+# pretrained models needed to perform feature extraction on test data too!
 if model_name == "vgg16":
 	base_model = VGG16(weights=weights)
 	model = Model(input=base_model.input, output=base_model.get_layer('fc1').output)
@@ -79,67 +82,32 @@ elif model_name == "xception":
 else:
 	base_model = None
 
-print ("[INFO] successfully loaded base model and model...")
-
-# path to training dataset
+# get all the train labels
 train_labels = os.listdir(train_path)
 
-# encode the labels
-print ("[INFO] encoding labels...")
-le = LabelEncoder()
-le.fit([tl for tl in train_labels])
+# get all the test images paths
+test_images = os.listdir(test_path)
 
-# variables to hold features and labels
-features = []
-labels   = []
+# loop through each image in the test data
+for image_path in test_images:
+	path 		= test_path + "/" + image_path
+	img 		= image.load_img(path, target_size=image_size)
+	x 			= image.img_to_array(img)
+	x 			= np.expand_dims(x, axis=0)
+	x 			= preprocess_input(x)
+	feature 	= model.predict(x)
+	flat 		= feature.flatten()
+	flat 		= np.expand_dims(flat, axis=0)
+	preds 		= classifier.predict(flat)
+	prediction 	= train_labels[preds[0]]
+	
+	# perform prediction on test image
+	print ("I think it is a " + train_labels[preds[0]])
+	img_color = cv2.imread(path, 1)
+	cv2.putText(img_color, "I think it is a " + prediction, (140,445), cv2.FONT_HERSHEY_SIMPLEX, 1, (0,0,255), 2)
+	cv2.imshow("test", img_color)
 
-# loop over all the labels in the folder
-count = 1
-for i, label in enumerate(train_labels):
-	cur_path = train_path + "/" + label
-	count = 1
-	for image_path in glob.glob(cur_path + "/*.jpg"):
-		img = image.load_img(image_path, target_size=image_size)
-		x = image.img_to_array(img)
-		x = np.expand_dims(x, axis=0)
-		x = preprocess_input(x)
-		feature = model.predict(x)
-		flat = feature.flatten()
-		features.append(flat)
-		labels.append(label)
-		print ("[INFO] processed - " + str(count))
-		count += 1
-	print ("[INFO] completed label - " + label)
-
-# encode the labels using LabelEncoder
-le = LabelEncoder()
-le_labels = le.fit_transform(labels)
-
-# get the shape of training labels
-print ("[STATUS] training labels: {}".format(le_labels))
-print ("[STATUS] training labels shape: {}".format(le_labels.shape))
-
-# save features and labels
-h5f_data = h5py.File(features_path, 'w')
-h5f_data.create_dataset('dataset_1', data=np.array(features))
-
-h5f_label = h5py.File(labels_path, 'w')
-h5f_label.create_dataset('dataset_1', data=np.array(le_labels))
-
-h5f_data.close()
-h5f_label.close()
-
-# save model and weights
-model_json = model.to_json()
-with open(model_path + str(test_size) + ".json", "w") as json_file:
-	json_file.write(model_json)
-
-# save weights
-model.save_weights(model_path + str(test_size) + ".h5")
-print("[STATUS] saved model and weights to disk..")
-
-print ("[STATUS] features and labels saved..")
-
-# end time
-end = time.time()
-print ("[STATUS] end time - {}".format(datetime.datetime.now().strftime("%Y-%m-%d %H:%M")))
+	# key tracker
+	key = cv2.waitKey(0) & 0xFF
+	if (key == ord('q')):
+		cv2.destroyAllWindows()
