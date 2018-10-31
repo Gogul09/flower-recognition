@@ -4,7 +4,7 @@
 	"include_top"     : false,
 
 	"train_path"      : "dataset/train",
-	"test_path"		  : "dataset/test",
+	"test_path"	  : "dataset/test",
 	"features_path"   : "output/flowers_17/mobilenet/features.h5",
 	"labels_path"     : "output/flowers_17/mobilenet/labels.h5",
 	"results"         : "output/flowers_17/mobilenet/results.txt",
